@@ -1,26 +1,23 @@
 const fs = require('fs');
 
-const converter = () => {
-    fs.readFile('input.json', 'utf8', (err, contents) => {
+const converter = (path) => {
+    fs.readFile(path, 'utf8', (err, contents) => {
         const data = JSON.parse(contents);
         const totalWeeklyAmount = accumulatedWeeklyUserCashOut(data);
 
         data.map(content => {
             const weekTimestamp = getWeekTimestamp(content.date);
-            const userId = content.user_id;
             const amount = content.operation.amount;
-            const type = content.type;
-            const userType = content.user_type;
-            let commission = 0;
+            let commission;
 
-            if (type === 'cash_in') {
+            if (content.type === 'cash_in') {
                 commission = amount * 0.03 / 100;
                 if (commission > 5) {
                     commission = 5;
                 }
             } else {
-                if (userType === 'natural') {
-                     if (totalWeeklyAmount[weekTimestamp][userId] > 1000 ) {
+                if (content.user_type === 'natural') {
+                     if (totalWeeklyAmount[weekTimestamp][content.user_id] > 1000 ) {
                          if (amount > 1000) {
                              commission = (amount - 1000) * .3 / 100;
                          } else {
@@ -29,6 +26,11 @@ const converter = () => {
                      } else {
                          commission = 0;
                      }
+                } else {
+                    commission = amount * .3 / 100;
+                    if (commission < 0.5) {
+                        commission = 0.5;
+                    }
                 }
             }
             return console.log(commission);
@@ -40,7 +42,7 @@ const getWeekTimestamp = (date) => {
     let dt = new Date(date);
     let currentWeekDay = dt.getDay();
     let lessDays = currentWeekDay === 0 ? 6 : currentWeekDay - 1;
-    return +new Date(new Date(dt).setDate(dt.getDate() - lessDays));
+    return + new Date(new Date(dt).setDate(dt.getDate() - lessDays));
 };
 
 const accumulatedWeeklyUserCashOut = (data) => {
@@ -68,4 +70,4 @@ const accumulatedWeeklyUserCashOut = (data) => {
     return totalWeeklyAmount
 };
 
-converter();
+converter(process.argv[2]);
