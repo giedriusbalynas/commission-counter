@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/giedriusbalynas/commission-counter/issues"
   },
-  "homepage": "https://github.com/giedriusbalynas/commission-counter#readme"
+  "homepage": "https://github.com/giedriusbalynas/commission-counter#readme",
+  "dependencies": {}
 }

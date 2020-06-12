@@ -33,7 +33,7 @@ const converter = (path) => {
                     }
                 }
             }
-            return console.log(commission);
+            console.log(roundUp(commission, 2));
         });
     });
 };
@@ -51,9 +51,8 @@ const accumulatedWeeklyUserCashOut = (data) => {
         let weekTimestamp = getWeekTimestamp(content.date);
         const amount = content.operation.amount;
         const userId = content.user_id;
-        const type = content.type;
 
-        if (type === 'cash_out') {
+        if (content.type === 'cash_out') {
             if (weekTimestamp in totalWeeklyAmount) {
                 if (userId in totalWeeklyAmount[weekTimestamp]) {
                     totalWeeklyAmount[weekTimestamp][userId] += amount;
@@ -68,6 +67,11 @@ const accumulatedWeeklyUserCashOut = (data) => {
         }
     });
     return totalWeeklyAmount
+};
+
+const roundUp = (num, precision) => {
+    precision = Math.pow(10, precision);
+    return Math.ceil(num * precision) / precision
 };
 
 converter(process.argv[2]);
