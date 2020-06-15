@@ -41,6 +41,7 @@ exports.converter = (path) => {
                 }
             }
             console.log(roundUp(commission, 2).toFixed(2));
+            return commission;
         });
     });
 };
