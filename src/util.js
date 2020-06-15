@@ -3,14 +3,14 @@ exports.roundUp = (num, precision) => {
     return Math.ceil(num * precision) / precision
 };
 
-const getWeekTimestamp = exports.getWeekTimestamp = (date) => {
+const getWeekTimestamp = exports.getWeekTimestamp = date => {
     const dt = new Date(date);
     const currentWeekDay = dt.getDay();
-    const lessDays = currentWeekDay === 0 ? 6 : currentWeekDay - 1;
+    const lessDays = currentWeekDay === 0 ? 6 : currentWeekDay - 1; // (monday to sunday)
     return + new Date(new Date(dt).setDate(dt.getDate() - lessDays));
 };
 
-exports.accumulatedWeeklyUserCashOut = (data) => {
+exports.accumulatedWeeklyUserCashOut = data => {
     const totalWeeklyAmount = {};
     data.map(content => {
         const weekTimestamp = getWeekTimestamp(content.date);
