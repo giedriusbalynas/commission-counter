@@ -8,12 +8,8 @@ test('[roundUp] should round decimal numbers to ceiling', () => {
 
 test('[getWeekTimestamp] should return the timestamp of the week for passed date', () => {
     const weekTimestamp = getWeekTimestamp('2016-01-06');
-    expect(weekTimestamp).toBe(1451865600000);
-
-    const newDate = new Date();
-    const weekTimestamp2 = getWeekTimestamp(newDate);
-    console.log("getWeekTimestamp:", weekTimestamp2, "newDateTimestamp", + newDate);
-    expect(weekTimestamp2).toBe(+ newDate);
+    const expectedResult = 1451865600000; //monday of that week
+    expect(weekTimestamp).toBe(expectedResult);
 });
 
 test('[getWeekTimestamp] should return true if day is in the same week', () => {
@@ -28,10 +24,10 @@ test('[accumulatedWeeklyUserCashOut] should return object', () => {
 
 test('[accumulatedWeeklyUserCashOut] should return specific object for specific data', () => {
     const weeklyUserCashOut = accumulatedWeeklyUserCashOut(jsonData);
-    expect(weeklyUserCashOut).toEqual(
+    const expectedResult =
         {
             '1451865600000': {'1': 31200, '2': 300, '3': 1000},
             '1455494400000': {'1': 300}
-        }
-    );
+        };
+    expect(weeklyUserCashOut).toEqual(expectedResult);
 });
