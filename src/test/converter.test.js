@@ -14,3 +14,9 @@ test('[converter] should return same output length as input length', () => {
     expect(receivedResult).toBe(expectedResult.length);
 });
 
+test('[converter] should return same output length as input length', () => {
+    const receivedResult = converter(path);
+    const result = Object.prototype.toString.call(receivedResult);
+    expect(result).toBe('[object Array]');
+});
+
