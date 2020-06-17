@@ -2,9 +2,9 @@
   "name": "commission-counter",
   "version": "1.0.0",
   "description": "",
-  "main": "App.js",
+  "main": "app.js",
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

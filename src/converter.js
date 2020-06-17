@@ -1,11 +1,9 @@
 const fs = require('fs');
 const {roundUp, getWeekTimestamp, accumulatedWeeklyUserCashOut} = require("./util.js");
 
-
 exports.converter = (path) => {
     let commissionArray;
     const fileContent = fs.readFileSync(path, 'utf8');
-
     const data = JSON.parse(fileContent);
     const totalWeeklyAmount = accumulatedWeeklyUserCashOut(data);
 
